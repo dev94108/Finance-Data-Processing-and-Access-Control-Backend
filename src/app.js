@@ -9,17 +9,13 @@ const dashboardRoutes = require("./routes/dashboardRoutes");
 const cors = require("cors");
 const app = express();
 
-app.use(
-  cors({
-    origin: "https://finance-data-processing-and-access-livid.vercel.app/",
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+const corsOptions = {
+  origin: "https://finance-data-processing-and-access-livid.vercel.app",
+  credentials: true,
+};
 
-// ✅ Handle preflight
-app.options("*", cors());
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 // Body parsing
 app.use(express.json());

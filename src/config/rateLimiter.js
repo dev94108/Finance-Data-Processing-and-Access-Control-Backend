@@ -2,7 +2,8 @@ const rateLimit = require("express-rate-limit");
 
 const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10000,   // Limit to 10000 requests per 15 minutes for all routes
+  max: 1000,   // Limit to 1000 requests per 15 minutes for all routes
+  skip: (req) => req.method === "OPTIONS",
   standardHeaders: true,
   legacyHeaders: false,
   message: {
@@ -13,7 +14,8 @@ const globalLimiter = rateLimit({
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 1000,  // Limit to 1000 requests per 15 minutes for auth routes
+  max: 100,  // Limit to 100 requests per 15 minutes for auth routes
+  skip: (req) => req.method === "OPTIONS",
   standardHeaders: true,
   legacyHeaders: false,
   message: {
